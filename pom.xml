@@ -17,7 +17,10 @@
     <jdk.version>17</jdk.version>
     <release.version>17</release.version>
     <micronaut.version>4.2.4</micronaut.version>
-    <exec.mainClass>com.jonathan_zollinger.Validation_bugCommand</exec.mainClass>
+    <micronaut.aot.enabled>false</micronaut.aot.enabled>
+    <micronaut.aot.packageName>com.jonathan_zollinger.aot.generated</micronaut.aot.packageName>
+    <micronaut.runtime>netty</micronaut.runtime>
+    <exec.mainClass>com.jonathan_zollinger.Application</exec.mainClass>
   </properties>
 
   <repositories>
@@ -29,13 +32,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>info.picocli</groupId>
-      <artifactId>picocli</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut.picocli</groupId>
-      <artifactId>micronaut-picocli</artifactId>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-http-server-netty</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -59,6 +57,16 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-http-client</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-inject-groovy</artifactId>
       <scope>test</scope>
@@ -73,11 +81,17 @@
       <artifactId>spock-core</artifactId>
       <scope>test</scope>
       <exclusions>
-          <exclusion>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-          </exclusion>
-        </exclusions>
+        <exclusion>
+          <groupId>org.apache.groovy</groupId>
+          <artifactId>groovy-all</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.datafaker</groupId>
+      <artifactId>datafaker</artifactId>
+      <version>2.1.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
@@ -85,6 +99,9 @@
       <plugin>
         <groupId>io.micronaut.maven</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
+        <configuration>
+          <configFile>aot-${packaging}.properties</configFile>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -111,11 +128,26 @@
           <!-- Uncomment to enable incremental compilation -->
           <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
 
-          <annotationProcessorPaths combine.children="append">
+          <annotationProcessorPaths combine.self="override">
             <path>
-              <groupId>info.picocli</groupId>
-              <artifactId>picocli-codegen</artifactId>
-              <version>${picocli.version}</version>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-inject-java</artifactId>
+              <version>${micronaut.core.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-graal</artifactId>
+              <version>${micronaut.core.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-http-validation</artifactId>
+              <version>${micronaut.core.version}</version>
             </path>
             <path>
               <groupId>io.micronaut.serde</groupId>

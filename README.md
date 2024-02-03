@@ -7,6 +7,11 @@
 ---
 
 - [Micronaut Maven Plugin documentation](https://micronaut-projects.github.io/micronaut-maven-plugin/latest/)
+## Feature micronaut-aot documentation
+
+- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
+
+
 ## Feature groovy-maven-plus-plugin documentation
 
 - [https://github.com/groovy/GMavenPlus/wiki/Usage](https://github.com/groovy/GMavenPlus/wiki/Usage)

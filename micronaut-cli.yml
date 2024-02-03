@@ -1,6 +1,6 @@
-applicationType: cli
+applicationType: default
 defaultPackage: com.jonathan_zollinger
 testFramework: spock
 sourceLanguage: java
 buildTool: maven
-features: [app-name, groovy-maven-plus-plugin, http-client-test, java, logback, maven, maven-enforcer-plugin, picocli, picocli-java-application, picocli-spock, properties, readme, serialization-jackson, shade, spock, validation]
+features: [app-name, groovy-maven-plus-plugin, http-client-test, java, java-application, logback, maven, maven-enforcer-plugin, micronaut-aot, micronaut-http-validation, netty-server, properties, readme, serialization-jackson, shade, spock, validation]
